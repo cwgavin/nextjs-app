@@ -3,6 +3,17 @@ import React, { useRef, useState } from "react";
 import styles from "../../styles/ImageClassificationPage.module.css";
 import { Button, TextField } from "@mui/material";
 import Image from "next/image";
+import { styled } from "@mui/system";
+
+const TextFieldPrimary = styled(TextField)({
+  marginBottom: "20px",
+  maxWidth: "500px",
+});
+
+const ButtonPrimary = styled(Button)({
+  marginBottom: "20px",
+  maxWidth: "120px",
+});
 
 type ClassificationResult = [[string, number]] | null;
 
@@ -71,8 +82,7 @@ export default function ImageClassificationPage() {
         accept="image/*"
         onChange={handleLocalFileChange}
       />
-      <TextField
-        className={styles.textField}
+      <TextFieldPrimary
         error={!imageUrlIsValid}
         helperText={
           !imageUrlIsValid &&
@@ -83,15 +93,14 @@ export default function ImageClassificationPage() {
         value={imageUrl}
         onChange={handleUrlChange}
       />
-      <Button
-        className={styles.button}
+      <ButtonPrimary
         type="submit"
         variant="contained"
         disabled={image === null}
         onClick={handleUpload}
       >
         Upload
-      </Button>
+      </ButtonPrimary>
       {image && (
         <Image
           className={styles.imagePreview}
@@ -99,7 +108,6 @@ export default function ImageClassificationPage() {
           alt="image-preview"
           width={0}
           height={0}
-          // sizes="100vw"
           style={{ width: "auto", height: "auto" }}
         />
       )}
