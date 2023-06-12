@@ -1,0 +1,22 @@
+.pageLayout {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.pageLayout > * {
+  margin-bottom: 20px;
+}
+
+.imagePreview {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.textField {
+  max-width: 500px;
+}
+
+.button {
+  max-width: 120px;
+}
