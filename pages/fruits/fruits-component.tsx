@@ -11,7 +11,7 @@ type Props = {
 };
 
 const FruitsSection = (props: Props) => {
-  const { fruits } = props;
+  const { fruits = [] } = props;
   return (
     <ul>
       {fruits.map((fruit) => (
