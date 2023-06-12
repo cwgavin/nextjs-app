@@ -13,32 +13,37 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Set up Python version
-        uses: actions/setup-python@v1
+      - uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
+      - name: Use poetry
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: 1.4.0
+      - name: Retrieve cached poetry-cache
+        uses: actions/cache@v1
+        with:
+          path: /home/runner/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+      - name: Run poetry install
+        run: poetry install
 
-      - name: Create and start virtual environment
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-      
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-        
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
-      
+
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v2
         with:
           name: python-app
           path: |
-            . 
-            !venv/
+            ./server
 
   deploy:
     runs-on: ubuntu-latest
