@@ -1,6 +1,7 @@
 import io
 from flask import Flask, request
 from imageClassification import predict
+from waitress import serve
 
 app = Flask("Flask Server")
 
@@ -17,9 +18,6 @@ def image_classification():
     return predict(fileBytes, app.logger)
 
 
-def main():
-    app.run(host="0.0.0.0", port=8080)
-
-
 if __name__ == "__main__":
-    main()
+    # app.run(host="0.0.0.0", port=8080)
+    serve(app, host="0.0.0.0", port=8080)
