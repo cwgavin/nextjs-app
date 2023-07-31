@@ -1,7 +1,6 @@
 import io
-from flask import Flask
-from server.test import predict
-from flask import request
+from flask import Flask, request
+from imageClassification import predict
 
 app = Flask("Flask Server")
 
@@ -20,3 +19,7 @@ def image_classification():
 
 def main():
     app.run(host="0.0.0.0", port=8080)
+
+
+if __name__ == "__main__":
+    main()

@@ -4,15 +4,11 @@ version = "0.1.0"
 description = ""
 authors = ["Gavin Cheng <cwmima@hotmail.com>"]
 readme = "README.md"
-packages = [{include = "server"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
 flask = "^2.3.2"
 torchvision = "^0.15.2"
-
-[tool.poetry.scripts]
-server = "server.app:main"
 
 [build-system]
 requires = ["poetry-core"]
