@@ -3,13 +3,14 @@ from logging import Logger
 import torch
 from torchvision import models
 from torchvision.models.resnet import ResNeXt50_32X4D_Weights
-import os
+from os import environ
+from os.path import dirname, abspath
 from PIL import Image
 from torchvision import transforms
 
 
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-os.environ["TORCH_HOME"] = f"{ROOT_DIR}/models"
+ROOT_DIR = dirname(dirname(abspath(__file__)))
+environ["TORCH_HOME"] = f"{ROOT_DIR}/models"
 
 
 def predict(imageBytes: BytesIO, logger: Logger):
