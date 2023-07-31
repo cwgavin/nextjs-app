@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.9"
 flask = "^2.3.2"
+torch = "^2.0.1"
 torchvision = "^0.15.2"
 waitress = "^2.1.2"
 
