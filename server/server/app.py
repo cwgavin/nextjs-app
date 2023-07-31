@@ -6,8 +6,13 @@ from flask import request
 app = Flask("Flask Server")
 
 
-@app.route("/test", methods=["GET", "POST"])
+@app.route("/")
 def hello_world():
+    return "<p>Hello, World!</p>"
+
+
+@app.route("/test", methods=["GET", "POST"])
+def image_classification():
     file = request.files["file"]
     fileBytes = io.BytesIO(file.read())
     return predict(fileBytes, app.logger)
