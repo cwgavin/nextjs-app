@@ -1,0 +1,11 @@
+version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - cd api
+        - pip install -r requirements.txt
+  artifacts:
+    baseDirectory: api
+    files:
+      - "**/*"
