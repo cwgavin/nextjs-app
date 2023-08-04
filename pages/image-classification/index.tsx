@@ -62,11 +62,11 @@ export default function ImageClassificationPage() {
     const data = new FormData();
     data.append("file", image);
 
-    fetch("/api/test", { method: "POST", body: data })
+    fetch("/flask-api/imageClassification", { method: "POST", body: data })
       .then(async (response) => {
         const imageResponse = await response.json();
         console.log(imageResponse);
-        setResult(imageResponse);
+        setResult(imageResponse["preds"]);
       })
       .catch((err) => {
         console.log(err);

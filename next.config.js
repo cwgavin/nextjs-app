@@ -6,8 +6,9 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/api/:path*",
-        destination: "http://127.0.0.1:8080/:path*",
+        source: "/flask-api/:path*",
+        // destination: "http://127.0.0.1:5000/:path*",
+        destination: "https://2023-flask-api.azurewebsites.net/:path*",
       },
       {
         source: "/fruit-api/:path*",
