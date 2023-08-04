@@ -1,16 +1,17 @@
 "use client";
 import React, { useRef, useState } from "react";
 import styles from "../../styles/ImageClassificationPage.module.css";
-import { Button, TextField } from "@mui/material";
-import Image from "next/image";
+import { TextField } from "@mui/material";
 import { styled } from "@mui/system";
+import LoadingButton from "@mui/lab/LoadingButton";
+import Image from "next/image";
 
 const TextFieldPrimary = styled(TextField)({
   marginBottom: "20px",
   maxWidth: "500px",
 });
 
-const ButtonPrimary = styled(Button)({
+const ButtonPrimary = styled(LoadingButton)({
   marginBottom: "20px",
   maxWidth: "120px",
 });
@@ -23,6 +24,7 @@ export default function ImageClassificationPage() {
   const [image, setImage] = useState<File | null>(null);
   const [result, setResult] = useState<ClassificationResult>(null);
   const localImageSelector = useRef<HTMLInputElement>(null);
+  const [loading, setLoading] = React.useState(false);
 
   const handleLocalFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -56,8 +58,9 @@ export default function ImageClassificationPage() {
     }
   };
 
-  const handleUpload = () => {
+  const handleSubmit = () => {
     if (!image) return;
+    setLoading(true);
 
     const data = new FormData();
     data.append("file", image);
@@ -66,6 +69,7 @@ export default function ImageClassificationPage() {
       .then(async (response) => {
         const imageResponse = await response.json();
         console.log(imageResponse);
+        setLoading(false);
         setResult(imageResponse["preds"]);
       })
       .catch((err) => {
@@ -97,9 +101,10 @@ export default function ImageClassificationPage() {
         type="submit"
         variant="contained"
         disabled={image === null}
-        onClick={handleUpload}
+        onClick={handleSubmit}
+        loading={loading}
       >
-        Upload
+        Submit
       </ButtonPrimary>
       {image && (
         <Image
