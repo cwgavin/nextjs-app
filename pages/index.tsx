@@ -36,10 +36,7 @@ export default function Home() {
 
           <Link href="/image-classification" className={styles.card}>
             <h2>Image Classification &rarr;</h2>
-            <p>
-              Call a back-end API with ML model to classify local and online
-              images
-            </p>
+            <p>Use AI to classify local and online images</p>
           </Link>
         </div>
       </main>
