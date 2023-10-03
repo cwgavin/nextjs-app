@@ -1,9 +1,11 @@
 .container {
   padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .main {
-  min-height: 100vh;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -14,18 +16,19 @@
 
 .footer {
   display: flex;
-  flex: 1;
-  padding: 2rem 0;
+  padding: 1.2rem 0;
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
 }
 
 .footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+  color: grey;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  text-decoration: none;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
 }
 
 .title a {

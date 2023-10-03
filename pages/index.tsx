@@ -40,6 +40,15 @@ export default function Home() {
           </Link>
         </div>
       </main>
+      <footer className={styles.footer}>
+        GitHub Repo:&nbsp;
+        <Link target="_blank" href="https://github.com/cwgavin/nextjs-app">
+          Front End (React)
+        </Link>
+        <Link target="_blank" href="https://github.com/cwgavin/flask-api">
+          Back End (Python)
+        </Link>
+      </footer>
     </div>
   );
 }
