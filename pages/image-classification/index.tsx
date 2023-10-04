@@ -74,6 +74,8 @@ export default function ImageClassificationPage() {
       })
       .catch((err) => {
         console.log(err);
+        alert(`Server error! Please wait for a while and try again.`);
+        setLoading(false);
       });
   };
 
