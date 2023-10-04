@@ -1,10 +1,12 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styles from "../../styles/ImageClassificationPage.module.css";
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/system";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { MuiFileInput } from "mui-file-input";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const TextFieldPrimary = styled(TextField)({
   marginBottom: "20px",
@@ -21,21 +23,20 @@ type ClassificationResult = [[string, number]] | null;
 export default function ImageClassificationPage() {
   const [imageUrl, setImageUrl] = useState("");
   const [imageUrlIsValid, setImageUrlIsValid] = useState(true);
-  const [image, setImage] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<ClassificationResult>(null);
-  const localImageSelector = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
 
-  const handleLocalFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
+  const handleFileChange = (newFile: File | null) => {
     setResult(null);
     setImageUrl("");
-    setImage(e.target.files[0]);
+    setFile(newFile);
   };
 
   const handleUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const url = e.target.value.trim();
-    localImageSelector.current!.value = "";
+    setFile(null);
     setImageUrl(url);
     setResult(null);
     if (url && url.startsWith("http")) {
@@ -46,24 +47,24 @@ export default function ImageClassificationPage() {
           return response.blob();
         })
         .then((blob) => {
-          setImage(new File([blob], ""));
+          setFile(new File([blob], ""));
           setImageUrlIsValid(true);
         })
         .catch(() => {
           setImageUrlIsValid(false);
-          setImage(null);
+          setFile(null);
         });
     } else {
-      setImage(null);
+      setFile(null);
     }
   };
 
   const handleSubmit = () => {
-    if (!image) return;
+    if (!file) return;
     setLoading(true);
 
     const data = new FormData();
-    data.append("file", image);
+    data.append("file", file);
 
     fetch("/flask-api/imageClassification", { method: "POST", body: data })
       .then(async (response) => {
@@ -81,16 +82,33 @@ export default function ImageClassificationPage() {
 
   return (
     <div className={styles.pageLayout}>
-      <input
-        ref={localImageSelector}
-        id="select-local-image"
-        type="file"
-        accept="image/*"
-        onChange={handleLocalFileChange}
+      <Button
+        variant="outlined"
+        className={styles.backButton}
+        onClick={() => router.push("/")}
+      >
+        &larr;
+      </Button>
+      {/* <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" href="/">
+          Home
+        </Link>
+        <Typography color="text.primary">Image Classification</Typography>
+      </Breadcrumbs> */}
+      <h2>Image Classification</h2>
+      <p>Upload a local image:</p>
+      <MuiFileInput
+        className={styles.fileSelector}
+        value={file}
+        inputProps={{ accept: "image/*" }}
+        onChange={handleFileChange}
+        placeholder="Local image"
       />
+      <p>Or input an online image URL:</p>
       <TextFieldPrimary
-        error={!imageUrlIsValid}
+        error={imageUrl && !imageUrlIsValid}
         helperText={
+          imageUrl &&
           !imageUrlIsValid &&
           "Can't fetch image from this URL, please try another one."
         }
@@ -102,16 +120,16 @@ export default function ImageClassificationPage() {
       <ButtonPrimary
         type="submit"
         variant="contained"
-        disabled={image === null}
+        disabled={file === null}
         onClick={handleSubmit}
         loading={loading}
       >
         Submit
       </ButtonPrimary>
-      {image && (
+      {file && (
         <Image
           className={styles.imagePreview}
-          src={URL.createObjectURL(image)}
+          src={URL.createObjectURL(file)}
           alt="image-preview"
           width={0}
           height={0}

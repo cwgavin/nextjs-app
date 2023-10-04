@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   output: "standalone",
+  transpilePackages: ['mui-file-input'],
   async rewrites() {
     return [
       {
