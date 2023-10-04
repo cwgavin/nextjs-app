@@ -17,3 +17,9 @@
 .fileSelector * {
   cursor: pointer;
 }
+
+@media (max-width: 600px) {
+  .pageLayout {
+    padding: 2rem;
+  }
+}
