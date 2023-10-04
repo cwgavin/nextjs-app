@@ -17,12 +17,3 @@
 .fileSelector * {
   cursor: pointer;
 }
-
-.backButton {
-  min-width: 0;
-  width: 45px;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  font-weight: bolder;
-  font-size: 18px;
-}

@@ -18,6 +18,15 @@ const ButtonPrimary = styled(LoadingButton)({
   maxWidth: "120px",
 });
 
+const BackButton = styled(Button)({
+  minWidth: "0",
+  width: "45px",
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+  fontWeight: "bolder",
+  fontSize: "18px",
+});
+
 type ClassificationResult = [[string, number]] | null;
 
 export default function ImageClassificationPage() {
@@ -82,13 +91,9 @@ export default function ImageClassificationPage() {
 
   return (
     <div className={styles.pageLayout}>
-      <Button
-        variant="outlined"
-        className={styles.backButton}
-        onClick={() => router.push("/")}
-      >
+      <BackButton variant="outlined" onClick={() => router.push("/")}>
         &larr;
-      </Button>
+      </BackButton>
       {/* <Breadcrumbs aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
           Home
