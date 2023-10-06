@@ -148,6 +148,19 @@ export default function ImageClassificationPage() {
       >
         Submit
       </ButtonPrimary>
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={5000}
+        onClose={handleCloseSnackBar}
+      >
+        <Alert
+          onClose={handleCloseSnackBar}
+          severity="success"
+          sx={{ width: "160px" }}
+        >
+          Succeed
+        </Alert>
+      </Snackbar>
       {file && (
         <Image
           className={styles.imagePreview}
@@ -165,19 +178,6 @@ export default function ImageClassificationPage() {
           {`Confidence: ${Math.round(result[0][1])}%`}
         </p>
       )}
-      <Snackbar
-        open={openSnackBar}
-        autoHideDuration={3000}
-        onClose={handleCloseSnackBar}
-      >
-        <Alert
-          onClose={handleCloseSnackBar}
-          severity="success"
-          sx={{ width: "160px" }}
-        >
-          Succeed
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
