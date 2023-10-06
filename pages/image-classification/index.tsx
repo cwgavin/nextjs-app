@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "../../styles/ImageClassificationPage.module.css";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Alert, Snackbar } from "@mui/material";
 import { styled } from "@mui/system";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { MuiFileInput } from "mui-file-input";
@@ -35,6 +35,7 @@ export default function ImageClassificationPage() {
   const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<ClassificationResult>(null);
   const [loading, setLoading] = React.useState(false);
+  const [openSnackBar, setOpenSnackBar] = React.useState(false);
   const router = useRouter();
 
   const handleFileChange = (newFile: File | null) => {
@@ -81,12 +82,23 @@ export default function ImageClassificationPage() {
         console.log(imageResponse);
         setLoading(false);
         setResult(imageResponse["preds"]);
+        setOpenSnackBar(true);
       })
       .catch((err) => {
         console.log(err);
         alert(`Server error! Please wait for a while and try again.`);
         setLoading(false);
       });
+  };
+
+  const handleCloseSnackBar = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackBar(false);
   };
 
   return (
@@ -101,6 +113,11 @@ export default function ImageClassificationPage() {
         <Typography color="text.primary">Image Classification</Typography>
       </Breadcrumbs> */}
       <h2>Image Classification</h2>
+      <Alert severity="warning" sx={{ maxWidth: "500px" }}>
+        Since it's using the free plan on Azure, if your first attempt fails,
+        please try again after a few minutes. This allows time for the server to
+        get ready.
+      </Alert>
       <p>Upload a local image:</p>
       <MuiFileInput
         className={styles.fileSelector}
@@ -148,6 +165,19 @@ export default function ImageClassificationPage() {
           {`Confidence: ${Math.round(result[0][1])}%`}
         </p>
       )}
+      <Snackbar
+        open={openSnackBar}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackBar}
+      >
+        <Alert
+          onClose={handleCloseSnackBar}
+          severity="success"
+          sx={{ width: "160px" }}
+        >
+          Succeed
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
