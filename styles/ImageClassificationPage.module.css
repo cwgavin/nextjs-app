@@ -2,6 +2,7 @@
   padding: 2rem 4rem;
   display: flex;
   flex-direction: column;
+  max-width: 600px;
 }
 
 .imagePreview {

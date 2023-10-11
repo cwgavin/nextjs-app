@@ -113,11 +113,20 @@ export default function ImageClassificationPage() {
         <Typography color="text.primary">Image Classification</Typography>
       </Breadcrumbs> */}
       <h2>Image Classification</h2>
-      <Alert severity="warning" sx={{ maxWidth: "500px" }}>
+      <Alert
+        severity="warning"
+        sx={{ marginBottom: "1rem" }}
+      >
         Since it's using the free plan on Azure, if your first attempt fails,
-        please try again after 5 minutes. This allows time for the server to
-        get ready.
+        please try again after 5 minutes. This allows time for the server to get
+        ready.
       </Alert>
+      This is an image classification tool powered by deep learning
+      technologies.
+      <br />
+      <br />
+      For example, try taking a photo of a cat or selecting one from the
+      internet, and let AI identify its breed.
       <p>Upload a local image:</p>
       <MuiFileInput
         className={styles.fileSelector}
