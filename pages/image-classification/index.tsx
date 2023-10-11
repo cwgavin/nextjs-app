@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../styles/ImageClassificationPage.module.css";
 import { TextField, Button, Alert, Snackbar } from "@mui/material";
 import { styled } from "@mui/system";
@@ -37,6 +37,18 @@ export default function ImageClassificationPage() {
   const [loading, setLoading] = React.useState(false);
   const [openSnackBar, setOpenSnackBar] = React.useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const handleFileChange = (newFile: File | null) => {
     setResult(null);
@@ -113,10 +125,7 @@ export default function ImageClassificationPage() {
         <Typography color="text.primary">Image Classification</Typography>
       </Breadcrumbs> */}
       <h2>Image Classification</h2>
-      <Alert
-        severity="warning"
-        sx={{ marginBottom: "1rem" }}
-      >
+      <Alert severity="warning" sx={{ marginBottom: "1rem" }}>
         Since it's using the free plan on Azure, if your first attempt fails,
         please try again after 5 minutes. This allows time for the server to get
         ready.
