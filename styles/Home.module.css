@@ -18,7 +18,13 @@
   display: flex;
   padding: 1.2rem 0;
   border-top: 1px solid #eaeaea;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.githubRepos {
+  display: flex;
   align-items: center;
 }
 
@@ -115,6 +121,9 @@
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+  .viewsCounter {
+    margin-bottom: 0.5rem;
   }
 }
 

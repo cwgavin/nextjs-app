@@ -115,7 +115,7 @@ export default function ImageClassificationPage() {
       <h2>Image Classification</h2>
       <Alert severity="warning" sx={{ maxWidth: "500px" }}>
         Since it's using the free plan on Azure, if your first attempt fails,
-        please try again after a few minutes. This allows time for the server to
+        please try again after 5 minutes. This allows time for the server to
         get ready.
       </Alert>
       <p>Upload a local image:</p>
